@@ -14,9 +14,12 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 
-#Environment
+# Environment
 .env
 .env*
 
-#Vim Error
+# Vim Error
 .nvimlog
+
+# Temporary directory
+tmp/
