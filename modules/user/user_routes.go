@@ -13,4 +13,6 @@ func RegisterRoutes(apiGroup *echo.Group) {
 
 	userGroup.GET("/getUserById", GetUserById)
 	userGroup.POST("/create", CreateUser)
+	userGroup.PUT("/updateUser", UpdateUser)
+	userGroup.DELETE("/deleteUserById", DeleteUserById)
 }

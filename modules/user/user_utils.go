@@ -7,7 +7,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func UserErrorHandler(err error, c echo.Context) error {
+func UserDBErrorHandler(err error, c echo.Context) error {
 	errorString := err.Error()
 
 	switch true {
@@ -20,4 +20,12 @@ func UserErrorHandler(err error, c echo.Context) error {
 	default:
 		return c.String(http.StatusInternalServerError, "An error occurred.")
 	}
+}
+
+func BindUserRequest(req interface{}, c echo.Context) interface{} {
+	if err := c.Bind(req); err != nil {
+		return c.String(http.StatusBadRequest, "Invalid user data supplied.")
+	}
+
+	return req
 }
