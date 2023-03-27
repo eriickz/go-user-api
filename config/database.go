@@ -14,7 +14,15 @@ import (
 var DB *bun.DB
 
 func ConnectAndLoadDB() {
-	err := godotenv.Load()
+	env := os.Getenv("ENVIRONMENT")
+
+	var err error
+
+	if env == "testing" {
+		err = godotenv.Load("../../../.env")
+	} else {
+		err = godotenv.Load(".env")
+	}
 
 	if err != nil {
 		log.Fatal("Error loading .env file")

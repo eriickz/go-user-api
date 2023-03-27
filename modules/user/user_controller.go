@@ -24,7 +24,7 @@ func CreateUser(c echo.Context) error {
 		return UserDBErrorHandler(err, c)
 	}
 
-	return c.JSON(http.StatusOK, user)
+	return c.JSON(http.StatusCreated, user)
 }
 
 func GetUserById(c echo.Context) error {
