@@ -27,6 +27,16 @@ func CreateUser(c echo.Context) error {
 	return c.JSON(http.StatusCreated, user)
 }
 
+func GetUsers(c echo.Context) error {
+	var users []User
+
+	if err := config.DB.NewSelect().Model(&users).OrderExpr("id DESC").Scan(context.TODO()); err != nil {
+		return UserDBErrorHandler(err, c)
+	}
+
+	return c.JSON(http.StatusOK, users)
+}
+
 func GetUserById(c echo.Context) error {
 	var req struct {
 		Id int64 `query:"id"`

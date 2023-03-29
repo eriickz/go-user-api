@@ -23,6 +23,7 @@ var mockUser = user.User{
 func TestUsersEndpoints(t *testing.T) {
 	config.ConnectAndLoadDB()
 	t.Run("Create test user", createMockUser)
+	t.Run("Get all users", getAllUsers)
 	t.Run("Get test user", getMockUser)
 	t.Run("Update test user", updateMockUser)
 	t.Run("Delete test user", deleteMockUser)
@@ -42,6 +43,20 @@ func createMockUser(t *testing.T) {
 			assert.Equal(t, mockUser.Email, testUser.Email)
 			assert.Equal(t, mockUser.Avatar, testUser.Avatar)
 			mockUser = testUser
+		}
+	}
+}
+
+func getAllUsers(t *testing.T) {
+	e := echo.New()
+	context, recorder := CreateTestContextAndRecorder(e, t, nil, http.MethodGet, "/api/user/getUsers")
+
+	if assert.NoError(t, user.GetUsers(context)) {
+		var users []user.User
+
+		if assert.Equal(t, http.StatusOK, recorder.Code) {
+			assert.NoError(t, json.Unmarshal([]byte(recorder.Body.String()), &users))
+			assert.True(t, SearchForMockUser(users, mockUser))
 		}
 	}
 }

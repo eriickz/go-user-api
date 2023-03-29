@@ -11,6 +11,7 @@ func RegisterRoutes(apiGroup *echo.Group) {
 	config.DB.NewCreateTable().Model(&User{}).Exec(context.TODO())
 	userGroup := apiGroup.Group("/user")
 
+	userGroup.GET("/getUsers", GetUsers)
 	userGroup.GET("/getUserById", GetUserById)
 	userGroup.POST("/create", CreateUser)
 	userGroup.PUT("/updateUser", UpdateUser)
