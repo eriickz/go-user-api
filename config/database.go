@@ -20,7 +20,7 @@ func ConnectAndLoadDB() {
 
 	if env == "testing" {
 		err = godotenv.Load("../../../.env")
-	} else {
+	} else if env == "dev" {
 		err = godotenv.Load(".env")
 	}
 
